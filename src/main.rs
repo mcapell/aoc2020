@@ -3,6 +3,7 @@ use structopt::StructOpt;
 mod day_01;
 mod day_02;
 mod day_03;
+mod day_04;
 
 #[derive(Debug, StructOpt)]
 struct Cli {
@@ -23,6 +24,10 @@ fn main() {
         "03" => {
             day_03::first_solution();
             day_03::second_solution();
+        }
+        "04" => {
+            day_04::first_solution();
+            day_04::second_solution();
         }
         _ => println!("Not yet implemented"),
     };
