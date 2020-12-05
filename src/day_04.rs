@@ -74,11 +74,10 @@ impl Passport {
         }
         match &self.hgt {
             Some(height) => {
-                if height.unit == "cm" && (height.value < 150 || height.value > 193) {
-                    return false;
-                } else if height.unit == "in" && (height.value < 59 || height.value > 76) {
-                    return false;
-                } else if height.unit != "cm" && height.unit != "in" {
+                if (height.unit == "cm" && (height.value < 150 || height.value > 193))
+                    || (height.unit == "in" && (height.value < 59 || height.value > 76))
+                    || (height.unit != "cm" && height.unit != "in")
+                {
                     return false;
                 }
             }
@@ -106,9 +105,8 @@ impl Passport {
                 if value.len() != 9 {
                     return false;
                 }
-                match value.parse::<i32>() {
-                    Err(_) => return false,
-                    _ => {}
+                if value.parse::<i32>().is_err() {
+                    return false;
                 }
             }
             None => return false,
@@ -138,7 +136,7 @@ fn parse_passports() -> Vec<Passport> {
             continue;
         }
         for block in line.split_whitespace().map(|t| t.trim()) {
-            let token: Vec<&str> = block.split(":").collect();
+            let token: Vec<&str> = block.split(':').collect();
             match token[0] {
                 "byr" => passport.byr = Some(token[1].parse::<i32>().expect("numeric value")),
                 "iyr" => passport.iyr = Some(token[1].parse::<i32>().expect("numeric value")),

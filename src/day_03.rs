@@ -12,10 +12,10 @@ pub fn first_solution() {
 pub fn second_solution() {
     let map = create_map_from_file();
     let slopes = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
-    let total = slopes
+    let total: i64 = slopes
         .iter()
         .map(|s| count_trees_from_slope(&map, *s) as i64)
-        .fold(1, |a, r| a * r);
+        .product();
     println!("{}", total);
 }
 
@@ -33,11 +33,8 @@ fn create_map_from_file() -> Map {
 fn count_trees_from_slope(map: &Map, slope: (usize, usize)) -> i32 {
     let mut count = 0;
     for y in 1..map.height / slope.1 {
-        match map.get(y * slope.0, y * slope.1) {
-            Square::Tree => {
-                count += 1;
-            }
-            _ => {}
+        if let Square::Tree = map.get(y * slope.0, y * slope.1) {
+            count += 1;
         }
     }
     count
