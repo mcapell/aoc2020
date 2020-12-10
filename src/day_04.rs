@@ -2,9 +2,13 @@ use std::collections::HashSet;
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
 
+use lazy_static::lazy_static;
 use regex::Regex;
 
 const FILEPATH: &str = "data/04/input.txt";
+lazy_static! {
+    static ref RE: Regex = Regex::new(r"^#[a-f0-9]{6}$").expect("Invalid regex");
+}
 
 pub fn first_solution() {
     let passports = parse_passports();
@@ -85,8 +89,7 @@ impl Passport {
         }
         match &self.hcl {
             Some(hcl) => {
-                let re = Regex::new(r"^#[a-f0-9]{6}$").expect("Invalid regex");
-                if !re.is_match(hcl) {
+                if !RE.is_match(hcl) {
                     return false;
                 }
             }

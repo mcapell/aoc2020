@@ -1,9 +1,13 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
 
+use lazy_static::lazy_static;
 use regex::Regex;
 
 const FILEPATH: &str = "data/02/input.txt";
+lazy_static! {
+    static ref RE: Regex = Regex::new(r"^(\d+)\-(\d+) (\w): (\w+)$").expect("Invalid regex");
+}
 
 pub fn first_solution() {
     let file = File::open(FILEPATH).expect("File not found");
@@ -65,8 +69,7 @@ impl PasswordRule {
  * 1-3 a: abcde
  */
 fn password_db_parser(line: String) -> PasswordRule {
-    let re = Regex::new(r"^(\d+)\-(\d+) (\w): (\w+)$").expect("Invalid regex");
-    let groups = re.captures(&line).expect("Invalid input");
+    let groups = RE.captures(&line).expect("Invalid input");
     PasswordRule {
         first: groups[1].parse().expect("expected `first` to be numeric"),
         second: groups[2].parse().expect("expected `second` to be numeric"),

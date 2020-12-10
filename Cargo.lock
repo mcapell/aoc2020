@@ -38,6 +38,7 @@ name = "aoc2020"
 version = "0.1.0"
 dependencies = [
  "itertools",
+ "lazy_static",
  "quicli",
  "regex",
  "structopt",

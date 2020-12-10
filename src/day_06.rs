@@ -41,8 +41,12 @@ pub fn second_solution() {
         num_in_group += 1;
         for ch in line.chars() {
             match group.get_mut(&ch) {
-                Some(v) => { *v += 1; },
-                _ => { group.insert(ch, 1); },
+                Some(v) => {
+                    *v += 1;
+                }
+                _ => {
+                    group.insert(ch, 1);
+                }
             }
         }
     }
