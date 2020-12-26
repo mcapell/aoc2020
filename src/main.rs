@@ -10,6 +10,7 @@ mod day_07;
 mod day_08;
 mod day_09;
 mod day_10;
+mod day_11;
 
 #[derive(Debug, StructOpt)]
 struct Cli {
@@ -58,6 +59,10 @@ fn main() {
         "10" => {
             day_10::first_solution();
             day_10::second_solution();
+        }
+        "11" => {
+            day_11::first_solution();
+            day_11::second_solution();
         }
         _ => println!("Not yet implemented"),
     };
