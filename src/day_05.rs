@@ -31,24 +31,16 @@ pub fn second_solution() {
 }
 
 fn seat_id(boarding_pass: String) -> i32 {
-    let mut rows = 128;
-    let mut cols = 8;
-    let mut seat_row = 0;
-    let mut seat_col = 0;
-    for chr in boarding_pass.chars() {
-        if 'B' == chr {
-            rows /= 2;
-            seat_row += rows;
-        } else if 'F' == chr {
-            rows /= 2;
-        } else if 'R' == chr {
-            cols /= 2;
-            seat_col += cols;
-        } else if 'L' == chr {
-            cols /= 2;
-        }
-    }
-    seat_row * 8 + seat_col
+    i32::from_str_radix(
+        boarding_pass
+            .replace("F", "0")
+            .replace("B", "1")
+            .replace("L", "0")
+            .replace("R", "1")
+            .as_str(),
+        2,
+    )
+    .expect("invalid boarding pass")
 }
 
 #[test]
