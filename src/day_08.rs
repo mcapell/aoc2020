@@ -58,7 +58,7 @@ fn parse_input() -> Vec<Instruction> {
         .collect()
 }
 
-fn execute_instructions(instructions: &Vec<Instruction>) -> Result<i64, i64> {
+fn execute_instructions(instructions: &[Instruction]) -> Result<i64, i64> {
     let mut executed = HashSet::new();
     let mut pointer: i32 = 0;
     let mut acc: i64 = 0;
@@ -106,7 +106,7 @@ fn parse_instruction(instruction: String) -> Instruction {
             "jmp" => Operation::JMP,
             "nop" => Operation::NOP,
             "acc" => Operation::ACC,
-            foo => panic!("Invalid operation: {}", foo),
+            op => panic!("Invalid operation: {}", op),
         },
         value: value
             * match &res[2] {

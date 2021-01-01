@@ -62,15 +62,23 @@ fn parse_layout(rows: Vec<String>) -> SeatLayout {
         .collect()
 }
 
-fn run_simulation(seats: &SeatLayout, fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize, max_occupied: usize) -> SeatLayout {
+fn run_simulation(
+    seats: &SeatLayout,
+    fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize,
+    max_occupied: usize,
+) -> SeatLayout {
     let new_layout = &move_seats(seats, fn_count, max_occupied);
     if new_layout == seats {
         return new_layout.clone();
     }
-    return run_simulation(new_layout, fn_count, max_occupied);
+    run_simulation(new_layout, fn_count, max_occupied)
 }
 
-fn move_seats(seats: &SeatLayout, fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize, max_occupied: usize) -> SeatLayout {
+fn move_seats(
+    seats: &SeatLayout,
+    fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize,
+    max_occupied: usize,
+) -> SeatLayout {
     let mut layout = vec![];
     for (y, row) in seats.iter().enumerate() {
         let mut new_row = vec![];
@@ -92,7 +100,7 @@ fn move_seats(seats: &SeatLayout, fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usiz
 fn count_adjacent(x: i8, y: i8, seats: &SeatLayout) -> usize {
     let x_max = seats[0].len() as i8;
     let y_max = seats.len() as i8;
-    let positions: Vec<(i8, i8)> = vec![
+    vec![
         (x - 1, y - 1),
         (x, y - 1),
         (x + 1, y - 1),
@@ -104,13 +112,8 @@ fn count_adjacent(x: i8, y: i8, seats: &SeatLayout) -> usize {
     ]
     .iter()
     .filter(|(x, y)| *x >= 0 && *y >= 0 && *x < x_max && *y < y_max)
-    .map(|t| *t)
-    .collect();
-
-    positions
-        .iter()
-        .filter(|(x, y)| seats[*y as usize][*x as usize] == SeatStatus::Occupied)
-        .count()
+    .filter(|(x, y)| seats[*y as usize][*x as usize] == SeatStatus::Occupied)
+    .count()
 }
 
 fn count_visible(x: i8, y: i8, seats: &SeatLayout) -> usize {

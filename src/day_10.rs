@@ -62,13 +62,12 @@ fn get_adapters(values: Vec<i32>) -> Vec<i32> {
 }
 
 fn count_valid_arrangements(
-    adapters: &Vec<i32>,
+    adapters: &[i32],
     position: usize,
     cache: &mut HashMap<usize, u64>,
 ) -> u64 {
-    match cache.get(&position) {
-        Some(value) => return *value,
-        _ => {}
+    if let Some(value) = cache.get(&position) {
+        return *value;
     }
     if position == adapters.len() - 1 {
         return 1;

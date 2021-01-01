@@ -48,7 +48,7 @@ fn find_wrong_number(window_size: usize, values: Vec<u64>) -> Option<u64> {
 fn find_contiguous_numbers(invalid_number: u64, values: Vec<u64>) -> Option<u64> {
     for comb_length in 2..values.len() {
         for combination in values.windows(comb_length) {
-            if invalid_number == combination.iter().map(|v| *v).sum() {
+            if invalid_number == combination.iter().copied().sum() {
                 return Some(
                     combination.iter().min().expect("unexpected empty values")
                         + combination.iter().max().expect("unexpected empty values"),

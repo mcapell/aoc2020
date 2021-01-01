@@ -71,7 +71,7 @@ fn create_graph(lines: Vec<String>) -> BagGraph {
 
 fn holds_shiny_gold_bag(graph: &BagGraph, bag: String) -> bool {
     for (_, b) in graph[&bag].iter() {
-        if *b == "shiny gold".to_string() {
+        if b == &"shiny gold".to_string() {
             return true;
         }
         if holds_shiny_gold_bag(&graph, b.clone()) {
