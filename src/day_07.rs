@@ -82,14 +82,13 @@ fn holds_shiny_gold_bag(graph: &BagGraph, bag: String) -> bool {
 }
 
 fn count_individual_bags(graph: &BagGraph, bag: String) -> u32 {
-    let total: u32 = graph
+    graph
         .get(&bag)
         .unwrap()
         .iter()
         .map(|(n, b)| count_individual_bags(&graph, b.clone()) * (*n) as u32)
         .sum::<u32>()
-        + 1;
-    return total;
+        + 1
 }
 
 #[test]
