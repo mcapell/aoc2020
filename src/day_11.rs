@@ -62,6 +62,7 @@ fn parse_layout(rows: Vec<String>) -> SeatLayout {
         .collect()
 }
 
+#[allow(clippy::ptr_arg)]
 fn run_simulation(
     seats: &SeatLayout,
     fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize,
@@ -74,6 +75,7 @@ fn run_simulation(
     run_simulation(new_layout, fn_count, max_occupied)
 }
 
+#[allow(clippy::ptr_arg)]
 fn move_seats(
     seats: &SeatLayout,
     fn_count: &dyn Fn(i8, i8, &SeatLayout) -> usize,
@@ -97,6 +99,7 @@ fn move_seats(
     layout
 }
 
+#[allow(clippy::ptr_arg)]
 fn count_adjacent(x: i8, y: i8, seats: &SeatLayout) -> usize {
     let x_max = seats[0].len() as i8;
     let y_max = seats.len() as i8;
@@ -116,6 +119,7 @@ fn count_adjacent(x: i8, y: i8, seats: &SeatLayout) -> usize {
     .count()
 }
 
+#[allow(clippy::ptr_arg)]
 fn count_visible(x: i8, y: i8, seats: &SeatLayout) -> usize {
     let directions: Vec<(i8, i8)> = vec![
         (-1, -1),
